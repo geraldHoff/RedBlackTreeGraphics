@@ -15,6 +15,7 @@ public class Driver {
         tree.initInsert(3);
         tree.initInsert(7);
         tree.initInsert(9);
-        System.out.println("Hi");
+        System.out.println(tree.getThisHeight());
+        System.out.println(tree.levelString(tree.root, 0));
     }
 }
