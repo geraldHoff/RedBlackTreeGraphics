@@ -28,31 +28,18 @@ public class RedBlackTree {
      * Partially based off of code from:
      * https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
      */
-    Node insertRecursive(Node current, int key){
+    Node insertRecursive(Node current, int key) {
         //if current node is null, set it to the new node.
-        if (current == null){
+        if (current == null) {
             return new Node(key);
         }
         //otherwise, recurse to the left or right child.
         else if (current.key < key) {
             current.rightChild = insertRecursive(current.rightChild, key);
-        }
-        else if (current.key > key) {
+        } else if (current.key > key) {
             current.leftChild = insertRecursive(current.leftChild, key);
         }
         return current;
-    }
-
-    /**
-     * Prints graphical representation of tree in text
-     */
-    void printTree(){
-
-    }
-
-    void printLevelOrder(){
-        //from d = 1 to height(tree)
-            //printGivenLevel(tree, d)
     }
 
     /**
@@ -94,24 +81,43 @@ public class RedBlackTree {
     }
 
     /**
-     *
-     * @param current
-     * @param level
-     * @return
+     * Prints all nodes on the given level of subtree of given node.
+     * Spaces the nodes according to null pointer exceptions.
+     * @param current The current node, the node from which the level is measured.
+     * @param level The level with respect to the given node.
+     * Based off of https://www.geeksforgeeks.org/level-order-tree-traversal/
      */
-    String levelString(Node current, int level){
-        StringBuilder stringBuilder = new StringBuilder();
-        if (current == null){
-            return stringBuilder.toString();
+    void printLevel(Node current, int level) {
+        if (root == null){
+            return;
         }
-        else if (getHeight(current) == 1){
-            stringBuilder.append(current.key);
-            return stringBuilder.toString();
+        if (level == 1){
+            System.out.print(current.key + " ");
         }
-        else {
-            stringBuilder.append(levelString(current.leftChild, level - 1));
-            stringBuilder.append(levelString(current.rightChild, level - 1));
-            return stringBuilder.toString();
+        //recursively gets the child nodes to reach the desired level.
+        else if (level > 1){
+            try {
+                printLevel(current.leftChild, level - 1);
+            } catch (NullPointerException e){System.out.print(" ");}
+            try {
+                printLevel(current.rightChild, level - 1);
+            } catch (NullPointerException e){System.out.print(" ");}
+        }
+    }
+
+    /**
+     * Prints the tree using a mediocre text base graphical representation.
+     */
+    void printTree(){
+        int h = getThisHeight();
+        //for each level, print the level.
+        for (int i = 1; i <= h; i++){
+            //also add spaces in front of level, more the higher.
+            for (int j = i; j < h; j++) {
+                System.out.print(" ");
+            }
+            printLevel(root, i);
+            System.out.println();
         }
     }
 
