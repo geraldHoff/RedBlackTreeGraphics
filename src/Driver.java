@@ -10,6 +10,11 @@
  */
 public class Driver {
     public static void main(String[] args) {
-
+        RedBlackTree tree = new RedBlackTree();
+        tree.initInsert(5);
+        tree.initInsert(3);
+        tree.initInsert(7);
+        tree.initInsert(9);
+        System.out.println("Hi");
     }
 }
